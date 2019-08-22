@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Работа с допущенными сотрудниками";
+}
+
+@using (Html.BeginForm("Admission", "Home", FormMethod.Post))
+{
+    <div>
+        <a href="@Url.Action("Index", "Home")"><b>Вернуться на главную</b></a>
+    </div>
+
+    <h2>Работа с допущенными сотрудниками</h2>
+    <form class="form-horizontal">
+        <div class="form-group form-group-lg">
+
+            <div class="col-md-8">
+                <input class="form-control" name="AdsearchPattern" id="focusedInput" style="max-width:800px" type="text" placeholder="для поиска сотрудников нажмите один из параметров поиска внизу">
+            </div>
+            <button type="submit" class="btn btn-default btn-lg btn-success col-md-2">Поиск</button>
+        </div>
+        <div class="form-group form-group-lg">
+            <div class="col-md-10">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#SerialNum">№, серия паспорта</a></li>
+                    <li><a data-toggle="tab" href="#FullNameEmp">ФИО сотрудника</a></li>
+                    <li><a data-toggle="tab" href="#BNumber">№ банкомата</a></li>
+                    <li><a data-toggle="tab" href="#OrgTitle">Название организации</a></li>
+                    <li><a data-toggle="tab" href="#Inn">ИНН организации</a></li>
+                </ul>
+                <div class="tab-content clearfix">
+                    <div id="SerialNum" class="tab-pane in active">
+                    </div>
+                    <div id="FullNameEmp" class="tab-pane">
+                    </div>
+                    <div id="BNumber" class="tab-pane">
+                    </div>
+                    <div id="OrgTitle" class="tab-pane">
+                    </div>
+                    <div id="Inn" class="tab-pane">
+                    </div>
+                </div>
+            </div>
+</form>
+
+}

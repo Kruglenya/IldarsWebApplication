@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Журнал действий";
+}
+@using (Html.BeginForm("Journal", "Home", FormMethod.Post))
+{
+    <div>
+        <a href="@Url.Action("Index", "Home")"><b>Вернуться на главную</b></a>
+    </div>
+    <h2>Статус проверки допущенных сотрудников</h2>
+
+    <form class="form-horizontal">
+        <div class="form-group form-group-lg">
+
+            <div class="col-md-8">
+                <input class="form-control" name="JsearchPattern" id="focusedInput" style="max-width:800px" type="text" placeholder="для поиска впишите название объекта или организации">
+            </div>
+            <button type="submit" class="btn btn-default btn-lg btn-success col-md-2">Найти</button>
+        </div>
+        <div class="form-group form-group-lg">
+            <div class="col-md-8">
+                <label class="radio-inline" ><input type="radio" value="One" name="optradio" disabled="disabled" >№ Банкомата</label>
+                <label class="radio-inline"><input type="radio" value="Two" name="optradio" checked>Организация или подрядчик</label>
+            </div>
+        </div>
+        <div class="form-group form-group-lg">
+            <div></div>
+            <div class="col-md-8" style="border-bottom: dotted 1px #9EC1D4;">
+                @ViewBag.OrgTitle
+            </div>
+        </div>
+    </form>
+
+}
+@Html.Partial("_JournalSearch")

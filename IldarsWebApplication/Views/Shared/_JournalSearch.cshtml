@@ -1,0 +1,24 @@
+﻿@model List<IldarsWebApplication.ViewModel.JournalSearchViewModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th data-field="FullName">ФИО</th>
+            <th data-field="AddedDate">Дата добавления</th>
+            <th data-field="SecurityDateStatus">Проверка службой безопастности</th>
+            <th data-field="AdmissionDateStatus">Допуск к работам</th>
+            <th data-field="LetterReceivedDateStatus">Письмо получено организацией</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="gridRow">
+                <td>@Html.DisplayFor(i => item.FullName)</td>
+                <td>@Html.DisplayFor(i => item.AddedDate)</td>
+                <td>@Html.DisplayFor(i => item.SecurityDateStatus) </td>
+                <td>@Html.DisplayFor(i => item.AdmissionDateStatus)</td>
+                <td>@Html.DisplayFor(i => item.LetterReceivedDateStatus)</td>
+            </tr>
+        }
+    </tbody>
+</table>

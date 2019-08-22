@@ -1,0 +1,234 @@
+﻿@model IldarsWebApplication.ViewModel.EmployeeViewModel
+@{
+    ViewBag.Title = "Добавить нового сотрудника";
+    string rootUrl = Request.Url.Scheme + "://" + Request.Url.Host;
+    if (Request.Url.Port != 80)
+    {
+        rootUrl += ":" + Request.Url.Port;
+    }
+    if (Request.Url.Host != "localhost")
+    {
+        rootUrl += "/Ildar";
+    }
+    rootUrl += "/" + "Ildar";
+}
+<script type="text/javascript" src="/Scripts/jquery.maskedinput.min.js"></script>
+@using (Html.BeginForm("NewEmployee", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div><h2>@ViewBag.ReturnMessage</h2></div>
+    <div>
+        <a href="@Url.Action("Index", "Home")"><b>Вернуться на главную</b></a>
+    </div>
+    <h2>Добавить нового сотрудника</h2>
+    <div class="nav navbar-right">
+        <a id="btnUpload" href="@Url.Action("Upload", "Home")" class="btn btn-default">Загрузить новых сотрудников</a>
+    </div>
+    <div class="nav navbar-right">
+        <a id="btnDownload" href="@Url.Action("Download", "Home")" class="btn btn-default">Выгрузить всех сотрудников</a>
+    </div>
+    <div class="container">
+        <label class="top text-uppercase">Внешний</label>
+        <label class="switch" for="checkbox">
+            <input type="checkbox" id="checkbox" name="IsInner" />
+            <div class="slider round"></div>
+        </label>
+        <label class="top text-uppercase">Внутренний</label>
+    </div>
+    <div class="container-fluid">
+        <table class="table table-bordered">
+            <tr>
+                <td class="text-center">
+                    <div class="label-field">
+                        @Html.LabelFor(model => model.Gender)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        <label>М</label>
+                        @Html.RadioButtonFor(model => model.Gender, "Male", new { Checked = "checked"})
+                        <label>Ж</label>
+                        @Html.RadioButtonFor(model => model.Gender, "Female")
+                        @Html.ValidationMessageFor(model => model.Gender)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">
+                    <div class="label-field">
+                        @Html.LabelFor(model => model.FirstName)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.FirstName, new { @title = "Введите фамилию" })
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </td>
+                <td class="text-right">@Html.LabelFor(model => model.SurName)</td>
+                <td>
+                    @Html.TextBoxFor(model => model.SurName, new { @title = "Введите имя" })
+                    @Html.ValidationMessageFor(model => model.SurName)
+                </td>
+                <td class="text-right">@Html.LabelFor(model => model.MiddleName)</td>
+                <td>
+                    @Html.TextBoxFor(model => model.MiddleName, new { @title = "Введите отчество" })
+                    @Html.ValidationMessageFor(model => model.MiddleName)
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">
+                    <div class="label-field">
+                        @Html.LabelFor(model => model.Serial)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Serial, new { @title = "Введите номер и серию паспорта" })
+                        @Html.ValidationMessageFor(model => model.Serial)
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="label-field">
+                        @Html.LabelFor(model => model.Code)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Code, new { @title = "Введите код подразделения" })
+                        @Html.ValidationMessageFor(model => model.Code)
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="label-field">
+                        @Html.LabelFor(model => model.IssueDate)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.IssueDate, new { @title = "Введите дату, когда выдан" })
+                        @Html.ValidationMessageFor(model => model.IssueDate)
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <table border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                            <td class="text-right">
+                                <div class="label-field">
+                                    @Html.Label("Регистрация")
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="10" align="left">&nbsp;</td>
+                            <td align="right">Регион:&nbsp;</td>
+                            <td>
+                                @Html.Editor("region")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="10" align="left">&nbsp;</td>
+                            <td align="right">Населенный пункт:&nbsp;</td>
+                            <td>
+                                @Html.Editor("locality")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="10" align="left">&nbsp;</td>
+                            <td align="right">Улица:&nbsp;</td>
+                            <td>
+                                @Html.Editor("street")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="10" align="left">&nbsp;</td>
+                            <td width="150px" align="right">Номер дома:&nbsp;</td>
+                            <td>
+
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input type="text" name="house" value="" size="4" MAXLENGTH="8"  style="background:#FFFFFF;border:solid 1px #828E98;height:19px" onfocus="javascript:document.ns_Z7_01HA1A42KODT90AR30VLN22001_searchForm.search_type[3].checked='true';" />
+                                        </td>
+                                        <td width="150px" align="right">Корпус:&nbsp;</td>
+                                        <td>
+                                            <input type="text" name="building" value="" size="4" MAXLENGTH="5"  style="background:#FFFFFF;border:solid 1px #828E98;height:19px" onfocus="javascript:document.ns_Z7_01HA1A42KODT90AR30VLN22001_searchForm.search_type[3].checked='true';" />
+                                        </td>
+                                        <td width="150px" align="right">Строение:&nbsp;</td>
+                                        <td>
+                                            <input type="text" name="structure" value="" size="4" MAXLENGTH="5"  style="background:#FFFFFF;border:solid 1px #828E98;height:19px" onfocus="javascript:document.ns_Z7_01HA1A42KODT90AR30VLN22001_searchForm.search_type[3].checked='true';" />
+                                        </td>
+                                        <td width="150px" align="right">Квартира:&nbsp;</td>
+                                        <td>
+                                            <input type="text" name="apartment" value="" size="4" MAXLENGTH="5"  style="background:#FFFFFF;border:solid 1px #828E98;height:19px" onfocus="javascript:document.ns_Z7_01HA1A42KODT90AR30VLN22001_searchForm.search_type[3].checked='true';" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+                <td></td>
+                <td colspan="3">
+                    <div class="editor-label">Фото</div>
+                    <div class="editor-field">
+                        <input type="file" name="image" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">
+                    <div class="label-field">
+                        @Html.LabelFor(model => model.WhoIssued)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.WhoIssued)
+                        @Html.ValidationMessageFor(model => model.WhoIssued)
+                    </div>
+                </td>
+                <td class="text-right">@Html.LabelFor(model => model.CitizenShip)</td>
+                <td>@Html.EditorFor(model => model.CitizenShip)</td>
+                <td class="text-right">@Html.LabelFor(model => model.BirthPlace)</td>
+                <td>@Html.EditorFor(model => model.BirthPlace)</td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.HireDate)</td>
+                <td>@Html.EditorFor(model => model.HireDate)</td>
+                <td class="text-right">@Html.LabelFor(model => model.Position)</td>
+                <td>@Html.EditorFor(model => model.Position)</td>
+                <td class="text-right">@Html.LabelFor(model => model.BirthDate)</td>
+                <td>@Html.EditorFor(model => model.BirthDate)</td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.Organization.Inn)</td>
+                <td>@Html.EditorFor(model => model.Organization.Inn)</td>
+                <td class="text-right">@Html.LabelFor(model => model.Organization.Title)</td>
+                <td>@Html.EditorFor(model => model.Organization.Title)</td>
+                <td class="text-right">@Html.LabelFor(model => model.TerritoryService)</td>
+                <td>@Html.DropDownListFor(model => model.TerritoryService, ViewBag.selectListTerr as SelectList, "Выбрать")</td>
+            </tr>
+        </table>
+        <div class="col-md-4">
+            @*<input type="checkbox" checked="checked" background-color="#66bb6a" />Согласие на обработку персональных данных получено*@
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+            <input type="submit" value="Сохранить и отправитьна проверку в службу безопасности" class="btn btn-default btn-success" style="white-space: pre-line;" background-color="#66bb6a" />
+        </div>
+    </div>
+}
+@Scripts.Render("~/bundles/inputmask")
+<script>
+    var urlroot = '@rootUrl/'
+</script>
+<script>
+    $(document).ready(function ($) {
+        $('#Code').inputmask({ "mask": "999-999", 'autoUnmask': true, 'removeMaskOnSubmit': true });
+        $('#Serial').inputmask({ "mask": "99 99 999999", 'autoUnmask': true, 'removeMaskOnSubmit': true });
+        $('#Organization_Inn').inputmask({ "mask": "9999999999", 'autoUnmask': true, 'removeMaskOnSubmit': true });
+    });
+</script>

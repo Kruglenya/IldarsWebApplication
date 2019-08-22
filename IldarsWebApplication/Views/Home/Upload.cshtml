@@ -1,0 +1,29 @@
+﻿
+    <div>
+        <a href="@Url.Action("Index", "Home")"><b>Вернуться на главную</b></a>
+    </div>
+    <div class="form-group">
+        <form method="post" action="~/Home/Upload" enctype="multipart/form-data" target="uploadTarget">
+            <label for="claimfile">Загрузить файл c новыми пользователями</label>
+            <input type="file" name="claimfile" id="claimfile" />
+            <button type="submit">Загрузить</button>
+        </form>
+    </div>
+
+    <div id="frameBox" style="display:none">
+        <iframe id="uploadTarget" name="uploadTarget" style="width:600px; top:600px;"></iframe>
+        <div>
+            <button type="button" onclick="document.getElementById('frameBox').style.display='none';">Ясно</button>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            window.addEventListener('load', function () {
+                document.getElementById('uploadTarget').addEventListener('load', function () {
+                    document.getElementById('frameBox').style.display = 'block';
+                    document.getElementById('claimfile').value = null;
+                });
+            });
+        </script>
+    }
