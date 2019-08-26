@@ -204,9 +204,7 @@ namespace IldarsWebApplication.Controllers
         public async Task<ActionResult> NewEmployee([Bind(Include = "SurName,FirstName,MiddleName, Gender, Serial, Code, IssueDate, WhoIssued,Registration,CitizenShip,BirthPlace,HireDate,Title,TerritoryService,Position,IsInnerClient,Organization")] EmployeeViewModel model,
                                             string IsInner, string region, string locality, string street, string house, string building, string structure, string apartment, HttpPostedFileBase image = null)
         {
-            try
-            {
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
                 {
                     Employee findEmp = db.Employees.Where(s => s.Serial == model.Serial & s.Code == model.Code).FirstOrDefault();
                     if (findEmp == null)
@@ -263,12 +261,7 @@ namespace IldarsWebApplication.Controllers
 
                     return RedirectToAction("Success", "Home");
                 }
-                ViewBag.selectListTerr = await TerrToList();
-            }
-            catch(Exception ex)
-            {
-                Elmah.Error error = new Elmah.Error(ex);
-            }
+            ViewBag.selectListTerr = await TerrToList();
             return View(model);
         }
         public ActionResult Success()
